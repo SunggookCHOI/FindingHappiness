@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <button onclick="getGreen();">1</button>
+    <button onclick="getYoung();">2</button>
+    <button onclick="getBudget();">3</button>
+
+    <div id="main"></div>
+    <div id="greenView"></div>
+
+    <script>
+        
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        function getGreen() {
+            axios.post("http://localhost/Project_Happiness/happiness.do?command=getGreenRatio")
+                .then(res => {
+                    console.log(res.data);
+                    let datas = eval(res.data);
+                    console.log(datas);
+                    console.log(typeof(datas));
+
+                    for (let i in datas){
+                        datas[i][0] = parseFloat(datas[i][0]);
+                        datas[i][1] = parseFloat(datas[i][1]);
+                    }
+                    // datas.unshift(['지역','행복지수','녹지비율']);
+                    drawGreen(datas);
+                })
+                .catch(function (err) {
+                    console.log('안돼...', err);
+                });
+        }
+
+        function drawGreen(chartData) {
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('number', '녹지 비율');
+            dataTable.addColumn('number', '행복지수');
+            dataTable.addColumn({type: 'string', role: 'tooltip'});
+            dataTable.addRows(chartData);
+            
+            var options = {
+                            width: 400,
+                            height: 240,
+                            hAxis: { title: '녹지비율 (%)' },
+                            vAxis: { title: '행복지수 (10점 만점)' },
+                            legend: {position: 'none'}
+                        };
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('greenView'));
+            chart.draw(dataTable, options);
+        }
+
+        function getYoung() {
+            axios.post("http://localhost/Project_Happiness/happiness.do?command=getYoungRatio")
+                .then(res => {
+                    console.log(res.data);
+                    let datas = eval(res.data);
+                    console.log(datas);
+                    console.log(typeof(datas));
+
+                    for (let i in datas){
+                        datas[i][0] = parseFloat(datas[i][0]);
+                        datas[i][1] = parseFloat(datas[i][1]);
+                    }
+                    // datas.unshift(['지역','행복지수','녹지비율']);
+                    drawYoung(datas);
+                })
+                .catch(function (err) {
+                    console.log('안돼...', err);
+                });
+        }
+
+        function drawYoung(chartData) {
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('number', '1020 비율');
+            dataTable.addColumn('number', '행복지수');
+            dataTable.addColumn({type: 'string', role: 'tooltip'});
+            dataTable.addRows(chartData);
+            
+            var options = {
+                            width: 400,
+                            height: 240,
+                            hAxis: { title: '1020 비율 (%)' },
+                            vAxis: { title: '행복지수 (10점 만점)' },
+                            legend: {position: 'none'}
+                        };
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('greenView'));
+            chart.draw(dataTable, options);
+        }
+
+        function getBudget() {
+            axios.post("http://localhost/Project_Happiness/happiness.do?command=getBudget")
+                .then(res => {
+                    console.log(res.data);
+                    let datas = eval(res.data);
+                    console.log(datas);
+                    console.log(typeof(datas));
+
+                    for (let i in datas){
+                        datas[i][0] = parseFloat(datas[i][0]);
+                        datas[i][1] = parseFloat(datas[i][1]);
+                    }
+                    // datas.unshift(['지역','행복지수','녹지비율']);
+                    drawBudget(datas);
+                })
+                .catch(function (err) {
+                    console.log('안돼...', err);
+                });
+        }
+
+        function drawBudget(chartData) {
+            var dataTable = new google.visualization.DataTable();
+            dataTable.addColumn('number', '복지예산');
+            dataTable.addColumn('number', '행복지수');
+            dataTable.addColumn({type: 'string', role: 'tooltip'});
+            dataTable.addRows(chartData);
+            
+            var options = {
+                            width: 400,
+                            height: 240,
+                            hAxis: { title: '문화 및 관광 예산 (원)' },
+                            vAxis: { title: '행복지수 (10점 만점)' },
+                            legend: {position: 'none'}
+                        };
+
+            var chart = new google.visualization.ScatterChart(document.getElementById('greenView'));
+            chart.draw(dataTable, options);
+        }
+
+        new Vue({
+            el : "#main"
+        });
+    </script>
+
+    
+</body>
+
+</html>
