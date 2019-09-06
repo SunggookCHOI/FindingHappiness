@@ -7,7 +7,7 @@ function drawChart(category) {
         command='getBudget';
     }
 
-    axios.post("http://localhost:8080/Project_Happiness/happiness.do?command="+command)
+    axios.post("http://localhost/Project_Happiness/happiness.do?command="+command)
         .then(res => {
             let chartData = eval(res.data);
             for (let i in chartData) {
@@ -146,3 +146,4 @@ function sum(list){
     }
     return result;
 }
+

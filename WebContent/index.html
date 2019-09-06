@@ -1,40 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>행복을 찾아서</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <!--이게 있어야 내비바 뜬다-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="js/drawChart.js"></script>
 </head>
 
 <body>
-    <button onclick="send();">1</button>
-    <button onclick="getData();">2</button>
-    <script>
-        function getData() {
-            axios.get("http://localhost/Project_Happiness/green.jsp")
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(function (err) {
-                    console.log('안돼...', err);
-                });
-        }
+    <!-- nav bar -->
+    <!-- <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </div>
+    </nav> -->
 
-        function send() {
-            axios.get("http://localhost/Project_Happiness/commend.do=getGreenRatio")
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(function (err) {
-                    console.log('안돼...', err);
-                });
-        }
-    </script>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            ...
+        </div>
+    </nav>
+
+    <!-- The video -->
+    <div id="vidioContain">
+        <div id="vidio">
+            <video autoplay muted loop id="myVideo">
+                <source src="happy.mp4" type="video/mp4">
+            </video>
+        </div>
+        <div class="content">
+            <h1>행복을 찾아서 ...</h1>
+            <p>Lorem ipsum...</p>
+            <!-- Use a button to pause/play the video with JavaScript -->
+        </div>
+    </div>
+
+    <!-- Optional: some overlay text to describe the video -->
+    <div></div>
+    <div>
+
+        <button onclick="drawChart(1);">녹지비율</button>
+        <button onclick="drawChart(2);">예산</button>
+        <button onclick="drawChart(3);">예산 fitting</button>
+
+        <div id="dataView"></div>
+
+        <transition>
+            <span v-if="fit==y" key="fit"></span>
+            <span v-else key="nonFit"></span>
+        </transition>
+        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+
 </body>
 
 </html>
