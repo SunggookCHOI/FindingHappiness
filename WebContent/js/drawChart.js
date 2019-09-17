@@ -1,20 +1,25 @@
 google.charts.load('current', { 'packages': ['corechart'] });
+google.charts.load('current', {packages: ['corechart', 'bar']});
 
 function drawChart(category) {
     if(category == 1){
         command='getGreenRatio';
     }else if(category == 2 || category==3){
         command='getBudget';
+    }else if(category ==4){
+        command='getSidoAverage';
     }
 
     axios.post("http://localhost/Project_Happiness/happiness.do?command="+command)
         .then(res => {
             let chartData = eval(res.data);
+            if (category==4){
+                sidoMean(chartData);
+            }
             for (let i in chartData) {
                 chartData[i][0] = parseFloat(chartData[i][0]);
                 chartData[i][1] = parseFloat(chartData[i][1]);
             }
-            console.log(chartData);
             if (category == 1) {
                 drawGreen(chartData);
             }else if(category ==2 ){
@@ -147,3 +152,31 @@ function sum(list){
     return result;
 }
 
+function sidoMean(chartData) {
+    
+    for (let i in chartData[0]){
+        chartData[0][i][1]=parseFloat(chartData[0][i][1])
+    }
+    
+    chartData[0].unshift(['지역명','행복지수'])
+    var data = new google.visualization.arrayToDataTable(chartData[0]);
+    console.log(data);
+    var options = {
+        width: 600,
+        height: 400,
+        vAxis: { 
+            title: "행복지수 (5점 만점)",
+            viewWindow:{
+                min:2.9,
+                max:3.4
+            }
+        },
+        hAxis :{
+            title : 'place'
+        },
+        legend: { position: "none" }
+      };
+
+    var chart = new google.visualization.ColumnChart(document.getElementById('View'));
+    chart.draw(data, options);
+}

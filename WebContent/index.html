@@ -8,13 +8,19 @@
     <title>행복을 찾아서</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- for old user-->
+    <script src="//polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver" crossorigin="anonymous"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.min.css">
     <link rel="stylesheet" href="css/style.css">
     <!--이게 있어야 내비바 뜬다-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="js/drawChart.js"></script>
+    <script src="js/vue.js"></script>
 </head>
 
 <body>
@@ -60,7 +66,6 @@
             <h2>당신은 행복하신가요?</h2>
             행복은 우리의 인생에 있어서 정말 중요한, 어쩌면 가장 중요한 가치, 삶의 목표라고도 할 수 있습니다. 그렇다면, 당신은 지금 행복하신가요?<br>
             만약 당신이 지금 행복하다면, 또는 그렇지 않다면, 그것은 온전히 당신의 정신적인 문제일까요?<br>
-            우리나라의 경제규모는 계속 커지고 있지만, 역설적이게도 빈곤 등의 사회의 어두운 면 역시도 커지고 있습니다. (이 문단은 안어울린다. 빼는게 나을듯)
         </div>
         <div class="row">
             <div class="col-md-5">
@@ -91,6 +96,20 @@
                 <br>
             </div>
             <div class="col-md-7">asdf</div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <button onclick="drawChart(4);">drq</button>
+                <div>
+                    <b-button-toolbar key-nav aria-label="Toolbar with button groups">
+                        <b-button-group class="mx-1">
+                            <b-button>&lsaquo;</b-button>
+                            <b-button>&rsaquo;</b-button>
+                        </b-button-group>
+                    </b-button-toolbar>
+                </div>
+                <div id="View"></div>
+            </div>
         </div>
     </div>
 

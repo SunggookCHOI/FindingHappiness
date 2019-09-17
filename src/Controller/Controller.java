@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.parser.ParseException;
 
 import model.Service;
+import model.SidoUnitService;
 
 @WebServlet("/happiness.do")
 public class Controller extends HttpServlet {
@@ -22,6 +23,7 @@ public class Controller extends HttpServlet {
 			"동작구","관악구","서초구","강남구","송파구","강동구","중랑구"));
 	
 	private static Service service = Service.getInstance();
+	private static SidoUnitService sidoService = SidoUnitService.getInstance();
 	
 	public Controller() {
 		super();
@@ -44,7 +46,8 @@ public class Controller extends HttpServlet {
 				getYoung(request, response);
 			}else if(command.equals("getBudget")){
 				getBudget(request, response);
-			}else if(command.equals("getSalesAmount")){
+			}else if(command.equals("getSidoAverage")){
+				getSidoAverage(request,response);
 			}else if(command.equals("activistInsert")){
 			}else if(command.equals("activistUpdateReq")){
 			}else if(command.equals("activistUpdate")){
@@ -79,9 +82,9 @@ public class Controller extends HttpServlet {
 		}
 		builder.append("]");
 		
-		request.setAttribute("green", builder.toString());
+		request.setAttribute("data", builder.toString());
 		try {
-			request.getRequestDispatcher("green.jsp").forward(request, response);
+			request.getRequestDispatcher("data.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -111,7 +114,7 @@ public class Controller extends HttpServlet {
 		}
 		builder.append("]");
 		
-		request.setAttribute("young", builder.toString());
+		request.setAttribute("data", builder.toString());
 		try {
 			request.getRequestDispatcher("young.jsp").forward(request, response);
 		} catch (Exception e) {
@@ -143,7 +146,63 @@ public class Controller extends HttpServlet {
 		}
 		builder.append("]");
 		
-		request.setAttribute("young", builder.toString());
+		request.setAttribute("data", builder.toString());
+		try {
+			request.getRequestDispatcher("young.jsp").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void getSidoAverage(HttpServletRequest request, HttpServletResponse response) {
+		ArrayList<String> gu = new ArrayList<>(Arrays.asList("전국","서울특별시","경기도","인천광역시","부산광역시","대구광역시","광주광역시","대전광역시","울산광역시","세종특별자치시","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주특별자치도"));
+		HashMap happyIndex = null;
+		HashMap happyIndexMale = null;
+		HashMap happyIndexFemale = null;
+		try {
+			happyIndex = sidoService.getMeanIndex("2017",0);
+			happyIndexMale = sidoService.getMeanIndex("2017",1);
+			happyIndexFemale = sidoService.getMeanIndex("2017",2);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		StringBuilder builder = new StringBuilder();
+		builder.append("[");
+		builder.append("[");
+		for(String g : gu) {
+			if (gu.indexOf(g)!=gu.size()-1) {
+				builder.append("['"+g+"','"+happyIndex.get(g)+"'],");
+			}else {
+				builder.append("['"+g+"','"+happyIndex.get(g)+"']");
+			}
+		}
+		builder.append("],");
+		builder.append("[");
+		for(String g : gu) {
+			if (gu.indexOf(g)!=gu.size()-1) {
+				builder.append("['"+g+"','"+happyIndexMale.get(g)+"'],");
+			}else {
+				builder.append("['"+g+"','"+happyIndexMale.get(g)+"']");
+			}
+		}
+		builder.append("],");
+		builder.append("[");
+		for(String g : gu) {
+			if (gu.indexOf(g)!=gu.size()-1) {
+				builder.append("['"+g+"','"+happyIndexFemale.get(g)+"'],");
+			}else {
+				builder.append("['"+g+"','"+happyIndexFemale.get(g)+"']");
+			}
+		}
+		builder.append("]");
+		builder.append("]");
+		System.out.println(builder.toString());
+		request.setAttribute("data", builder.toString());
+		
 		try {
 			request.getRequestDispatcher("young.jsp").forward(request, response);
 		} catch (Exception e) {
