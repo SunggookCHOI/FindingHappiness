@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>행복을 찾아서</title>
+    <script src="../dist/main.js"></script>
+</head>
+
+<body>
+    <!-- nav bar -->
+    <!-- <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">WebSiteName</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Page 1</a></li>
+                <li><a href="#">Page 2</a></li>
+                <li><a href="#">Page 3</a></li>
+            </ul>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            ...
+        </div>
+    </nav>
+
+    <!-- The video -->
+    <div id="" class="container-fluid">
+        <div id="vidioContain">
+            <div id="vidio">
+                <video autoplay muted loop id="myVideo">
+                    <source src="happy.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="content">
+                <h1>당신, 행복하신가요?</h1>
+                <p>행복을 찾아서 ...</p>
+                <!-- Use a button to pause/play the video with JavaScript -->
+            </div>
+        </div>
+    </div>
+    <!-- Optional: some overlay text to describe the video -->
+    <div id="app" class=".container-fluid">
+        <div class="row">
+            <h2>당신은 행복하신가요?</h2>
+            행복은 우리의 인생에 있어서 정말 중요한, 어쩌면 가장 중요한 가치, 삶의 목표라고도 할 수 있습니다. 그렇다면, 당신은 지금 행복하신가요?<br>
+            만약 당신이 지금 행복하다면, 또는 그렇지 않다면, 그것은 온전히 당신의 정신적인 문제일까요?<br>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <button onclick="drawChart(1);">녹지비율</button>
+                <button onclick="drawChart(2);">예산</button>
+                <button onclick="drawChart(3);">예산 fitting</button>
+
+                <div id="dataView"></div>
+
+                <transition>
+                    <span v-if="fit==y" key="fit"></span>
+                    <span v-else key="nonFit"></span>
+                </transition>
+                aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+            <div class="col-md-7">asdf</div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <button onclick="drawChart(4);">drq</button>
+                <div>
+                    <b-button-toolbar key-nav aria-label="Toolbar with button groups">
+                        <b-button-group class="mx-1">
+                            <b-button>&lsaquo;</b-button>
+                            <b-button>&rsaquo;</b-button>
+                        </b-button-group>
+                    </b-button-toolbar>
+                </div>
+                <div id="View"></div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
