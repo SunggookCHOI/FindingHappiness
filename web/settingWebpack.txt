@@ -1,0 +1,125 @@
+build
+dist
+public
+src
+    index.js
+    root.js
+    style.css
+webpack.config.js
+.babelrc
+
+
+1.  최상위 루트에서 npm init -y
+2. npm i @babel/core @babel/preset-env @babel/preset-react babel-loader clean-webpack-plugin css-loader html-loader html-webpack-plugin mini-css-extract-plugin node-sass react react-dom sass-loader style-loader webpack webpack-cli webpack-dev-server
+3. src/index.js
+
+import React from "react";
+import ReactDOM from "react-dom";
+import Root from "./Root";
+
+ReactDOM.render(<Root />, document.getElementById("root"));
+
+4. src/root.js
+
+import React from 'react';
+import './style.scss';
+
+const Root = () => {
+  return (
+    <h3 className="title">Hello, React</h3>
+  );
+};
+
+export default Root;
+
+5. public/index.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+
+6. webpack.config.js
+
+const path = require("path");
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname + "/build")
+  },
+  devServer: {
+    contentBase: path.resolve("./build"),
+    index: "index.html",
+    port: 9000
+  },
+  mode: "none",
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: "/node_modules",
+        use: ['babel-loader'],
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: "html-loader",
+            options: { minimize: true }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: './public/index.html', // public/index.html 파일을 읽는다.
+      filename: 'index.html' // output으로 출력할 파일은 index.html 이다.
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'style.css'
+    })
+  ]
+};
+
+
+7. .babelrc
+
+{
+    "presets": ["@babel/preset-env", "@babel/preset-react"]
+  }
+
+
+8. npm run-script build 하면 build에 index.html, bundle.js 가 생긴다
+    개발은 public/ 하고 src/ 를 하면 된다.
+
+** react component에서 state 사용이 안될때 :
+yarn add @babel/plugin-proposal-class-properties --dev 하고,
+.babelrc를 아래와 같이 수정하고
+{
+    "presets": ["@babel/preset-env", "@babel/preset-react"],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+      ]
+  }
+
